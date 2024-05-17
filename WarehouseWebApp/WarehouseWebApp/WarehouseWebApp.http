@@ -1,0 +1,6 @@
+@WarehouseWebApp_HostAddress = http://localhost:5113
+
+GET {{WarehouseWebApp_HostAddress}}/fulfill/
+Accept: application/json
+
+###
