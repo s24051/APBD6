@@ -34,4 +34,24 @@ public class WarehouseController: ControllerBase
             return BadRequest(e.Message);
         }
     }
+    
+    /// <summary>
+    /// Endpoint used to fulfill an order an animal with a transaction.
+    /// </summary>
+    /// <param name="productWarehouse">ProductWarehouse data</param>
+    /// <returns>200 Ok</returns>
+    [HttpPut]
+
+    public IActionResult FulfillSQL(FulfilledOrder fulfilledOrder)
+    {
+        try
+        {
+            var id = _service.FulfillWithProcedure(fulfilledOrder);
+            return Ok(id);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
 }

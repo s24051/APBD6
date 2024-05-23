@@ -50,4 +50,9 @@ public class WarehouseService: IWarehouseService
         Console.WriteLine("INSERT " + id);
         return id;
     }
+
+    public int FulfillWithProcedure(FulfilledOrder fulfilledOrder)
+    {
+        return _repository.FullfillWithProcedure(fulfilledOrder, "AddProductToWarehouse");
+    }
 }

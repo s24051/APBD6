@@ -10,4 +10,5 @@ public interface IRepository
     public ProductWarehouse getProductWarehouseByOrder(int orderId);
     public int insertProductWarehouse(ProductWarehouse productWarehouse);
     public int updateOrder(Order order);
+    public int FullfillWithProcedure(FulfilledOrder fulfilledOrder, String procedure);
 }

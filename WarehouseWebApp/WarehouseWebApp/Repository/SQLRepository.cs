@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using System.Data;
+using System.Data.SqlClient;
 using Microsoft.AspNetCore.Components.Infrastructure;
 using WarehouseWebApp.Models;
 
@@ -161,5 +162,20 @@ public class SQLRepository: IRepository
         
         var affectedCount = cmd.ExecuteNonQuery();
         return affectedCount;
+    }
+
+    public int FullfillWithProcedure(FulfilledOrder fulfilledOrder, string procedure)
+    {
+        string connectionString = _configuration["ConnectionStrings:DefaultConnection"];
+        using var con = new SqlConnection(connectionString);
+        
+        SqlCommand cmd = new SqlCommand(procedure, con);
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("IdProduct", fulfilledOrder.IdProduct);
+        cmd.Parameters.AddWithValue("Amount", fulfilledOrder.Amount);
+        cmd.Parameters.AddWithValue("IdWarehouse", fulfilledOrder.IdWarehouse);
+        cmd.Parameters.AddWithValue("CreatedAt", fulfilledOrder.CreatedAt);
+        con.Open();
+        return (int)cmd.ExecuteScalar();
     }
 }
